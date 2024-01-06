@@ -1,0 +1,12 @@
+{
+  "volume": 50,
+  "soundEnabled": false,
+  "fullscreenMode": false,
+  "language": "en-US",
+  "controls": {
+    "moveUp": "W",
+    "moveDown": "S",
+    "moveLeft": "A",
+    "moveRight": "D"
+  }
+}

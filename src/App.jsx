@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './App.css';
 
+import Menu from './components/Menu/Menu';
 import Game from './components/Game/Game';
 
+import gameConfig from './data/config.json';
+
 const App = () => {
+  const [_screen, setScreen] = useState({ width: null, height: null });
+
+  useEffect(() => {
+    localStorage.getItem('gameConfig') || localStorage.setItem('gameConfig', JSON.stringify(gameConfig));
+    localStorage.getItem('hasSave') || localStorage.setItem('hasSave', false);
+
+    setScreen({
+      width: window.screen.width,
+      height: window.screen.height
+    });
+  }, []);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Menu />,
+    },
+    {
+      path: "/game",
+      element: <Game width={_screen.width} height={_screen.height} />,
+    },
+  ]);
+
   return (
-    <Game />
+    <RouterProvider router={router} />
   );
 };
 
