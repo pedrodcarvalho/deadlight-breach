@@ -1,22 +1,20 @@
-const grassTileset = new Image();
-grassTileset.src = '/assets/spritesheets/tilesets/grass.png';
-import grassTilemap from '../data/tilemaps/grass.js'
-
-const levelWidth = grassTilemap.tilemap[0].length * grassTilemap.TILE_SIZE;
-const levelHeight = grassTilemap.tilemap.length * grassTilemap.TILE_SIZE;
-
-import tilemapDrawer from '../utils/tilemapDrawer.js'
-
 import Player from './classes/Player.js';
 import Camera from './Camera.js';
 
+import tilemapDrawer from '../utils/tilemapDrawer.js'
+
 class Renderer {
-    constructor(canvas, ctx) {
+    constructor(canvas, ctx, levelTileset, levelTilemap, levelWidth, levelHeight) {
         this.canvas = canvas;
         this.ctx = ctx;
 
         this.camera = new Camera(canvas);
         this.player = new Player(canvas);
+
+        this.levelTileset = levelTileset;
+        this.levelTilemap = levelTilemap;
+        this.levelWidth = levelWidth;
+        this.levelHeight = levelHeight;
 
         this.FRAME_RATE = 60;
         this.GAME_TICK = 0;
@@ -27,7 +25,7 @@ class Renderer {
         this.ctx.fillStyle = 'lime';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        tilemapDrawer(grassTileset, grassTilemap, this.ctx);
+        tilemapDrawer(this.levelTileset, this.levelTilemap, this.ctx);
     }
 
     drawObjects() {
@@ -62,7 +60,7 @@ class Renderer {
             this.drawUI();
             this.drawText();
 
-            this.camera.updatePosition(this.player, levelWidth, levelHeight);
+            this.camera.updatePosition(this.player, this.levelWidth, this.levelHeight);
             this.camera.move();
 
             this.GAME_TICK += 1;
