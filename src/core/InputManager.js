@@ -38,8 +38,8 @@ class InputManager {
         });
     }
 
-    isPressed(key) {
-        return this.pressedKeys[key];
+    isPressed(keys) {
+        return keys.every((key) => this.pressedKeys[key]);
     }
 
     noKeysPressed() {
