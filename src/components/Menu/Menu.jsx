@@ -7,7 +7,7 @@ import Options from '../Options/Options';
 
 import gameConfigObj from '../../data/config.json';
 
-import playerSettings from '../../data/player.json';
+import playerConfig from '../../data/player.json';
 
 const Menu = () => {
   const [showOptions, setShowOptions] = useState(false);
@@ -24,7 +24,7 @@ const Menu = () => {
 
   const saveNewGame = () => {
     localStorage.setItem('hasSave', true);
-    localStorage.setItem('playerSettings', JSON.stringify(playerSettings));
+    localStorage.setItem('playerConfig', JSON.stringify(playerConfig));
   };
 
   const loadGame = () => {
@@ -34,7 +34,7 @@ const Menu = () => {
   const overwriteSave = (doOverwrite) => {
     if (doOverwrite) {
       localStorage.setItem('hasSave', true);
-      localStorage.setItem('playerSettings', JSON.stringify(playerSettings));
+      localStorage.setItem('playerConfig', JSON.stringify(playerConfig));
       setModal({ show: false, message: null });
       loadGame();
     }
