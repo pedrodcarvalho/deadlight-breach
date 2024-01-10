@@ -11,7 +11,7 @@ class Camera {
         this.x = player.x - this.canvas.width / 2 + 32;
         this.y = player.y - this.canvas.height / 2 + 32;
 
-        // Clamp camera position to level boundaries
+        // Clamp camera position to level borders
         this.x = Math.max(0, Math.min(this.x, levelWidth - this.canvas.width));
         this.y = Math.max(0, Math.min(this.y, levelHeight - this.canvas.height));
     }
