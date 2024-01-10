@@ -47,7 +47,7 @@ class Renderer {
     }
 
     eventListeners() {
-        this.player.listenToInput(this.colission.checkLevelBoundariesCollision(this.player, this.levelWidth, this.levelHeight));
+        this.player.listenToInput(this.colission.checkLevelBordersCollision(this.player, this.levelWidth, this.levelHeight));
     }
 
     gameLoop() {
