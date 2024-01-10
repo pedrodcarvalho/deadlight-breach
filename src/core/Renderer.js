@@ -1,5 +1,6 @@
 import Player from './classes/Player.js';
 import Camera from './Camera.js';
+import Colission from './Colission.js';
 
 import tilemapDrawer from '../utils/tilemapDrawer.js'
 
@@ -10,6 +11,7 @@ class Renderer {
 
         this.camera = new Camera(canvas);
         this.player = new Player(canvas);
+        this.colission = new Colission();
 
         this.levelTileset = levelTileset;
         this.levelTilemap = levelTilemap;
@@ -23,7 +25,7 @@ class Renderer {
 
     drawBackground() {
         this.ctx.fillStyle = 'lime';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillRect(this.camera.x, this.camera.y, this.canvas.width, this.canvas.height);
 
         tilemapDrawer(this.levelTileset, this.levelTilemap, this.ctx);
     }
@@ -41,11 +43,11 @@ class Renderer {
     }
 
     clearScreen() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.clearRect(this.camera.x, this.camera.y, this.canvas.width, this.canvas.height);
     }
 
     eventListeners() {
-        this.player.listenToInput();
+        this.player.listenToInput(this.colission.checkLevelBoundariesCollision(this.player, this.levelWidth, this.levelHeight));
     }
 
     gameLoop() {
