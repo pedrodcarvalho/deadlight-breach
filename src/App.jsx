@@ -16,8 +16,8 @@ const App = () => {
     localStorage.getItem('hasSave') || localStorage.setItem('hasSave', false);
 
     setScreen({
-      width: window.screen.width,
-      height: window.screen.height
+      width: document.body.clientWidth,
+      height: document.body.clientHeight,
     });
   }, []);
 
