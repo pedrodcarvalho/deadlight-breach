@@ -1,4 +1,5 @@
 import Level from './Level.js';
+import levelObjects from '../spritesheets/objects/GrassLevelObjects.js';
 
 import levelTilemap from '../data/tilemaps/grass.js'
 
@@ -10,7 +11,7 @@ const levelHeight = levelTilemap.tilemap.length * levelTilemap.TILE_SIZE;
 
 class GrassLevel extends Level {
     constructor() {
-        super(levelTileset, levelTilemap, levelWidth, levelHeight);
+        super(levelTileset, levelTilemap, levelWidth, levelHeight, levelObjects);
     }
 };
 

@@ -1,17 +1,23 @@
 import Player from './classes/Player.js';
+import Objects from './classes/Objects.js';
 import Camera from './Camera.js';
 import Colission from './Colission.js';
 
 import tilemapDrawer from '../utils/tilemapDrawer.js'
 
 class Renderer {
-    constructor(canvas, ctx, levelTileset, levelTilemap, levelWidth, levelHeight) {
+    constructor(canvas, ctx, levelTileset, levelTilemap, levelWidth, levelHeight, levelObjects) {
         this.canvas = canvas;
         this.ctx = ctx;
 
         this.camera = new Camera(canvas);
         this.player = new Player(canvas);
         this.colission = new Colission();
+
+        this.levelObjects = levelObjects;
+
+        // Development and debugging purposes only
+        this.objects = new Objects(this.levelObjects['vehicles'][0]);
 
         this.levelTileset = levelTileset;
         this.levelTilemap = levelTilemap;
@@ -31,6 +37,8 @@ class Renderer {
     }
 
     drawObjects() {
+        this.objects.drawObject(this.ctx);
+
         this.player.drawPlayer(this.ctx, this.GAME_TICK, this.FRAME_RATE);
     }
 
@@ -47,7 +55,14 @@ class Renderer {
     }
 
     eventListeners() {
-        this.player.listenToInput(this.colission.checkLevelBordersCollision(this.player, this.levelWidth, this.levelHeight));
+        this.colission.checkLevelBordersCollision(this.player, this.levelWidth, this.levelHeight)
+
+        if (this.objects.checkCollisionWithPlayer(this.player)) {
+            this.player.handleCollision();
+        }
+        else {
+            this.player.listenToInput();
+        }
     }
 
     gameLoop() {
@@ -55,12 +70,12 @@ class Renderer {
             // clearScreen must be called before drawing anything else otherwise the canvas will not be drawn over
             this.clearScreen();
 
-            this.eventListeners();
-
             this.drawBackground();
             this.drawObjects();
             this.drawUI();
             this.drawText();
+
+            this.eventListeners();
 
             this.camera.updatePosition(this.player, this.levelWidth, this.levelHeight);
             this.camera.move();

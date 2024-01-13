@@ -21,6 +21,7 @@ class Player {
         this.direction = getPlayerConfig()?.direction || 'down';
         this.nextFrame = 0;
         this.sprite = playerSprites.idle.sprite;
+        this.collidingDirection = null;
     }
 
     animatePlayer(GAME_TICK, FRAME_RATE, animationSpeed, spriteWidth, spriteFrameWidth) {
@@ -116,12 +117,13 @@ class Player {
     }
 
     getMovementDirection(movementDirections) {
-        movementDirections.map((direction) => {
+        return movementDirections.map((direction) => {
             if (inputManager.isPressed([direction])) {
                 this.movePlayer([direction]);
                 this.direction = direction;
+                return direction;
             }
-        });
+        }).filter((direction) => direction);
     }
 
     isOppositeMovement() {
@@ -139,6 +141,25 @@ class Player {
             }
             else {
                 this.getMovementDirection(movementDirections);
+            }
+        }
+
+        this.collidingDirection = null;
+    };
+
+    handleCollision() {
+        if (!this.collidingDirection) {
+            this.collidingDirection = this.getMovementDirection(movementDirections);
+        }
+
+        const acceptableDirections = movementDirections.filter(direction => !this.collidingDirection.includes(direction));
+
+        if (!this.isOppositeMovement()) {
+            if (this.isDiagonalMovement()) {
+                this.getDiagonalMovementDirection([acceptableDirections]);
+            }
+            else {
+                this.getMovementDirection(acceptableDirections);
             }
         }
     };

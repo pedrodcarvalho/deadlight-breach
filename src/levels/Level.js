@@ -1,9 +1,10 @@
 class Level {
-    constructor(tileset, tilemap, width, height) {
+    constructor(tileset, tilemap, width, height, objects) {
         this.tileset = tileset;
         this.tilemap = tilemap;
         this.width = width;
         this.height = height;
+        this.objects = objects;
 
         this.addLevelBorders();
     }

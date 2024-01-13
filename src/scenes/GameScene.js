@@ -6,7 +6,7 @@ class GameScene extends Renderer {
     constructor(canvas, ctx) {
         const grassLevel = new GrassLevel();
 
-        super(canvas, ctx, grassLevel.tileset, grassLevel.tilemap, grassLevel.width, grassLevel.height);
+        super(canvas, ctx, grassLevel.tileset, grassLevel.tilemap, grassLevel.width, grassLevel.height, grassLevel.objects);
     }
 };
 
