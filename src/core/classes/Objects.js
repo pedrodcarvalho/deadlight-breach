@@ -20,8 +20,8 @@ class Objects {
         };
     };
 
-    checkCollisionWithPlayer(player) {
-        const { hitbox } = this.objectProps;
+    checkCollisionWithPlayer(player, object) {
+        const { hitbox } = object;
         const { x, y } = player;
 
         return (

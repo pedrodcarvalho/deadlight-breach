@@ -14,10 +14,11 @@ class Renderer {
         this.player = new Player(canvas);
         this.colission = new Colission();
 
-        this.levelObjects = levelObjects;
-
-        // Development and debugging purposes only
-        this.objects = new Objects(this.levelObjects['vehicles'][0]);
+        this.levelObjects = Object.keys(levelObjects).map((key) => {
+            return levelObjects[key].map((object) => {
+                return new Objects(object);
+            });
+        });
 
         this.levelTileset = levelTileset;
         this.levelTilemap = levelTilemap;
@@ -37,7 +38,11 @@ class Renderer {
     }
 
     drawObjects() {
-        this.objects.drawObject(this.ctx);
+        this.levelObjects.map((objectArray) => {
+            objectArray.map((object) => {
+                object.drawObject(this.ctx);
+            });
+        });
 
         this.player.drawPlayer(this.ctx, this.GAME_TICK, this.FRAME_RATE);
     }
@@ -57,7 +62,12 @@ class Renderer {
     eventListeners() {
         this.colission.checkLevelBordersCollision(this.player, this.levelWidth, this.levelHeight)
 
-        if (this.objects.checkCollisionWithPlayer(this.player)) {
+        const isCollidingWithObject = this.levelObjects.map((objectArray) => {
+            return objectArray.map((object) => object.checkCollisionWithPlayer(this.player, object.objectProps));
+        }).flat().includes(true);
+
+
+        if (isCollidingWithObject) {
             this.player.handleCollision();
         }
         else {

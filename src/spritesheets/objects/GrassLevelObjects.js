@@ -1,22 +1,15 @@
-const policeCarSprite = new Image();
-policeCarSprite.src = '/assets/spritesheets/vehicles/police-car/spritesheet.png';
-const policeCarSpriteWidth = policeCarSprite.width;
-const policeCarSpriteFrameHeight = 200;
-const policeCarSpriteFrameWidth = 200;
+import spriteCreator from "../../utils/spriteCreator";
 
-const policeCar = {
-    sprite: policeCarSprite,
-    spriteWidth: policeCarSpriteWidth,
-    spriteFrameHeight: policeCarSpriteFrameHeight,
-    spriteFrameHeight: policeCarSpriteFrameHeight,
-    spriteFrameWidth: policeCarSpriteFrameWidth,
-    x: 100,
-    y: 0
-};
+const policeCar = spriteCreator(new Image(), '/assets/spritesheets/vehicles/police-car/police-car.png', 200, 200, 100, 0);
+const policeCar2 = spriteCreator(new Image(), '/assets/spritesheets/vehicles/police-car/police-car.png', 200, 200, 400, 0);
 
 const objectSprites = {
     vehicles: [
-        policeCar
+        policeCar,
+        policeCar2
+    ],
+    buildings: [
+
     ]
 };
 
