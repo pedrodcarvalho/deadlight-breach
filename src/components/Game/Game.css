@@ -1,0 +1,9 @@
+.gameWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.gameWrapper canvas {
+  position: absolute;
+}

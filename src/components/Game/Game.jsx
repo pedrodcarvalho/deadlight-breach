@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 
 import "./Game.css";
 
+import Ui from "../Ui/Ui";
+
 import GameScene from "../../scenes/GameScene";
 
 const Game = ({ width, height }) => {
@@ -22,7 +24,10 @@ const Game = ({ width, height }) => {
   }, []);
 
   return (
-    <canvas id='screen' width={width} height={height}></canvas>
+    <div className="gameWrapper">
+      <canvas id='screen' width={width} height={height}></canvas>
+      <Ui width={width} height={height} />
+    </div>
   );
 };
 
