@@ -47,14 +47,6 @@ class Renderer {
         this.player.drawPlayer(this.ctx, this.GAME_TICK, this.FRAME_RATE);
     }
 
-    drawUI() {
-        // TODO: draw UI
-    }
-
-    drawText(text, x, y) {
-        // TODO: draw text
-    }
-
     clearScreen() {
         this.ctx.clearRect(this.camera.x, this.camera.y, this.canvas.width, this.canvas.height);
     }
@@ -82,8 +74,6 @@ class Renderer {
 
             this.drawBackground();
             this.drawObjects();
-            this.drawUI();
-            this.drawText();
 
             this.eventListeners();
 
